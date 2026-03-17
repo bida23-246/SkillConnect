@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillConnect Botswana – Connect. Work. Earn.</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --cream: #f5f0e8;
+    --sand: #e8dcc8;
+    --terracotta: #c95f38;
+    --rust: #a8391a;
+    --sky: #4a8fa8;
+    --gold: #d4a43a;
+    --sage: #6b8f71;
+    --light: #faf8f4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--light);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 5%;
+    background: rgba(245,240,232,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1.5px solid var(--sand);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.3rem;
+    letter-spacing: -0.03em;
+  }
+  .nav-logo span { color: var(--terracotta); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--ink);
+    font-size: 0.88rem; font-weight: 500;
+    letter-spacing: 0.02em; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-cta {
+    background: var(--terracotta); color: #fff;
+    border: none; padding: 0.6rem 1.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; font-weight: 500;
+    border-radius: 2px; cursor: pointer;
+    letter-spacing: 0.04em; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--rust); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 6rem 5% 4rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--cream);
+  }
+
+  /* Decorative geometric bg */
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 55%; height: 100%;
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(201,95,56,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 60% 80%, rgba(74,143,168,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-geo {
+    position: absolute; right: 0; top: 0;
+    width: 52%; height: 100%;
+    background: var(--sand);
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+    z-index: 0;
+  }
+
+  .hero-left { position: relative; z-index: 1; }
+  .hero-right { position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--ink); color: var(--cream);
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.4rem 0.9rem; border-radius: 2px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--terracotta); border-radius: 50%;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 5vw, 4.4rem);
+    font-weight: 800; line-height: 1.06;
+    letter-spacing: -0.03em;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--terracotta);
+    position: relative;
+    display: inline-block;
+  }
+  h1 em::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0; height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    animation: lineGrow 0.5s 0.8s ease both;
+    transform-origin: left;
+  }
+
+  .hero-sub {
+    margin-top: 1.4rem;
+    font-size: 1.1rem; font-weight: 300;
+    color: #4a4540; max-width: 42ch;
+    line-height: 1.7;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+    margin-top: 2.4rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--terracotta); color: #fff;
+    border: 2px solid var(--terracotta);
+    padding: 0.85rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 500;
+    border-radius: 2px; cursor: pointer;
+    letter-spacing: 0.02em; transition: all 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--rust); border-color: var(--rust); transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent; color: var(--ink);
+    border: 2px solid var(--ink);
+    padding: 0.85rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 500;
+    border-radius: 2px; cursor: pointer;
+    letter-spacing: 0.02em; transition: all 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--cream); transform: translateY(-1px); }
+
+  /* Hero stats bar */
+  .hero-stats {
+    display: flex; gap: 2.5rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(15,14,13,0.12);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem; font-weight: 800;
+    color: var(--terracotta); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.8rem; color: #7a7268;
+    letter-spacing: 0.04em; margin-top: 0.2rem;
+  }
+
+  /* Hero visual — abstract grid of skills */
+  .hero-visual {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem; max-width: 360px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .skill-card {
+    background: #fff;
+    border: 1.5px solid var(--sand);
+    border-radius: 4px;
+    padding: 1rem 0.8rem;
+    text-align: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .skill-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .skill-card.featured {
+    background: var(--terracotta); color: #fff;
+    border-color: var(--terracotta);
+    grid-column: span 2;
+    display: flex; gap: 1rem; align-items: center;
+    text-align: left;
+  }
+  .skill-icon { font-size: 1.6rem; line-height: 1; }
+  .skill-name { font-size: 0.78rem; font-weight: 500; margin-top: 0.4rem; }
+  .skill-card.featured .skill-name { font-size: 0.95rem; font-weight: 600; }
+  .skill-card.featured .skill-sub { font-size: 0.78rem; opacity: 0.8; }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 6rem 5%;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .section-tag {
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.8rem;
+  }
+  .how h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.02em; max-width: 20ch;
+    margin-bottom: 3.5rem;
+  }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px; background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .step {
+    background: var(--ink); padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+  }
+  .step:hover { background: #1a1917; }
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 4rem; font-weight: 800;
+    color: rgba(255,255,255,0.06);
+    line-height: 1; margin-bottom: 1rem;
+    user-select: none;
+  }
+  .step-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .step h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem; font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .step p { font-size: 0.9rem; color: rgba(245,240,232,0.65); line-height: 1.6; }
+
+  /* ── CATEGORIES ── */
+  .categories {
+    padding: 6rem 5%;
+    background: var(--light);
+  }
+  .categories .section-tag { color: var(--terracotta); }
+  .categories h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 0.6rem;
+  }
+  .categories-sub {
+    font-size: 1rem; color: #7a7268; margin-bottom: 3rem;
+    max-width: 50ch;
+  }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.8rem;
+  }
+  .cat-item {
+    background: var(--cream); border: 1.5px solid var(--sand);
+    border-radius: 4px; padding: 1.5rem 1.2rem;
+    cursor: pointer; transition: all 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .cat-item::before {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 3px;
+    background: var(--terracotta);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .cat-item:hover { border-color: var(--terracotta); transform: translateY(-3px); }
+  .cat-item:hover::before { transform: scaleX(1); }
+  .cat-emoji { font-size: 1.8rem; margin-bottom: 0.7rem; }
+  .cat-label {
+    font-size: 0.85rem; font-weight: 500;
+    line-height: 1.3; color: var(--ink);
+  }
+
+  /* ── WHY ── */
+  .why {
+    padding: 6rem 5%;
+    background: var(--sand);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .why .section-tag { color: var(--terracotta); }
+  .why h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 800; letter-spacing: -0.02em;
+    line-height: 1.1; margin-bottom: 1.5rem;
+  }
+  .why-lead {
+    font-size: 1.05rem; color: #4a4540;
+    line-height: 1.75; margin-bottom: 2rem;
+  }
+  .why-points { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+  .why-points li {
+    display: flex; gap: 0.8rem; align-items: flex-start;
+    font-size: 0.95rem; line-height: 1.5;
+  }
+  .why-points li::before {
+    content: '✓'; background: var(--terracotta); color: #fff;
+    width: 20px; height: 20px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+  }
+
+  .why-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;
+  }
+  .why-card {
+    background: #fff; border-radius: 6px;
+    padding: 1.5rem; border: 1.5px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s;
+  }
+  .why-card:hover { transform: translateY(-3px); }
+  .why-card.tall { grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; }
+  .why-card.accent { background: var(--terracotta); color: #fff; }
+  .why-card-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem; font-weight: 800; line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .why-card-label { font-size: 0.82rem; opacity: 0.75; }
+  .why-card-big {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem; font-weight: 700;
+    line-height: 1.3; margin-bottom: 0.5rem;
+  }
+  .why-card-text { font-size: 0.82rem; color: #7a7268; line-height: 1.5; }
+  .why-card.accent .why-card-text { color: rgba(255,255,255,0.75); }
+
+  /* ── PRICING ── */
+  .pricing {
+    padding: 6rem 5%;
+    background: var(--light);
+  }
+  .pricing .section-tag { color: var(--terracotta); }
+  .pricing h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .pricing-sub { color: #7a7268; margin-bottom: 3rem; }
+  .plans-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem; max-width: 900px;
+  }
+  .plan {
+    border: 2px solid var(--sand);
+    border-radius: 6px; padding: 2.2rem 2rem;
+    position: relative; transition: transform 0.25s;
+  }
+  .plan:hover { transform: translateY(-4px); }
+  .plan.popular {
+    border-color: var(--terracotta);
+    background: var(--cream);
+  }
+  .plan-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--terracotta); color: #fff;
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.25rem 0.9rem; border-radius: 20px;
+  }
+  .plan-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--terracotta); margin-bottom: 0.5rem;
+  }
+  .plan-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.6rem; font-weight: 800;
+    line-height: 1; margin-bottom: 0.3rem;
+  }
+  .plan-price span { font-size: 1rem; font-weight: 400; color: #7a7268; }
+  .plan-desc { font-size: 0.88rem; color: #7a7268; margin-bottom: 1.8rem; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 2rem; }
+  .plan-features li {
+    font-size: 0.88rem; display: flex; gap: 0.6rem; align-items: center;
+  }
+  .plan-features li::before {
+    content: '→'; color: var(--terracotta); font-weight: 700; flex-shrink: 0;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    padding: 6rem 5%;
+    background: var(--ink); color: var(--cream);
+    overflow: hidden;
+  }
+  .testimonials .section-tag { color: var(--gold); }
+  .testimonials h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+  }
+  .testi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+  .testi {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px; padding: 2rem;
+    transition: background 0.25s;
+  }
+  .testi:hover { background: rgba(255,255,255,0.08); }
+  .testi-quote {
+    font-size: 0.95rem; line-height: 1.7;
+    color: rgba(245,240,232,0.8);
+    margin-bottom: 1.4rem;
+    font-style: italic;
+  }
+  .testi-quote::before { content: '"'; color: var(--gold); font-size: 1.4rem; }
+  .testi-author {
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .testi-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--terracotta);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.9rem;
+  }
+  .testi-name { font-weight: 600; font-size: 0.9rem; }
+  .testi-role { font-size: 0.78rem; color: rgba(245,240,232,0.5); }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 7rem 5%;
+    background: var(--terracotta);
+    color: #fff; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: 'SC';
+    font-family: 'Syne', sans-serif;
+    font-size: 20rem; font-weight: 800;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.07; pointer-events: none;
+    letter-spacing: -0.05em;
+  }
+  .cta-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.1; margin-bottom: 1.2rem;
+    position: relative;
+  }
+  .cta-section p {
+    font-size: 1.1rem; opacity: 0.85;
+    max-width: 48ch; margin: 0 auto 2.5rem;
+    line-height: 1.65;
+  }
+  .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-white {
+    background: #fff; color: var(--terracotta);
+    border: 2px solid #fff; padding: 0.9rem 2.2rem;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600;
+    border-radius: 2px; cursor: pointer;
+    letter-spacing: 0.02em; transition: all 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-white:hover { background: transparent; color: #fff; transform: translateY(-2px); }
+  .btn-outline-white {
+    background: transparent; color: #fff;
+    border: 2px solid rgba(255,255,255,0.5);
+    padding: 0.9rem 2.2rem;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500;
+    border-radius: 2px; cursor: pointer;
+    letter-spacing: 0.02em; transition: all 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-outline-white:hover { border-color: #fff; transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0a0908; color: var(--cream);
+    padding: 4rem 5% 2rem;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 2rem;
+  }
+  .footer-brand .nav-logo { font-size: 1.4rem; margin-bottom: 0.8rem; display: block; }
+  .footer-brand p { font-size: 0.88rem; color: rgba(245,240,232,0.55); line-height: 1.65; max-width: 32ch; }
+  .footer-col h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul li a {
+    text-decoration: none; color: rgba(245,240,232,0.6);
+    font-size: 0.88rem; transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--cream); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; color: rgba(245,240,232,0.35);
+    flex-wrap: wrap; gap: 0.5rem;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes lineGrow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  /* Scroll reveal helper */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+    .hero-geo { display: none; }
+    .hero-right { justify-content: flex-start; margin-top: 2rem; }
+    .why { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .hero-stats { gap: 1.5rem; }
+    .plans-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .hero-visual { max-width: 280px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Skill<span>Connect</span> BW</div>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#categories">Browse Skills</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <button class="nav-cta">Join the Platform</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-geo"></div>
+  <div class="hero-left">
+    <div class="hero-tag">Botswana's Skill Marketplace</div>
+    <h1>Turn your talent<br>into <em>income</em>,<br>right here.</h1>
+    <p class="hero-sub">SkillConnect Botswana connects skilled youth with clients who need them — locally, securely, and affordably.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Offer a Skill</a>
+      <a href="#categories" class="btn-secondary">Hire Talent</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Freelancers Ready</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Skill Categories</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">P150</div>
+        <div class="stat-label">Avg. Service Fee</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="skill-card featured">
+        <div class="skill-icon">🎨</div>
+        <div>
+          <div class="skill-name">Graphic Design</div>
+          <div class="skill-sub">Logo, Branding & Print</div>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📸</div>
+        <div class="skill-name">Photography</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">💻</div>
+        <div class="skill-name">Web Dev</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">✂️</div>
+        <div class="skill-name">Hair & Beauty</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📐</div>
+        <div class="skill-name">Tutoring</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🍽️</div>
+        <div class="skill-name">Catering</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔧</div>
+        <div class="skill-name">Plumbing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-tag">Process</div>
+  <h2>Three steps to earning.</h2>
+  <div class="steps-grid">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon">👤</div>
+      <h3>Create Your Profile</h3>
+      <p>Sign up, list your skills, upload portfolio samples, and set your own rates. It takes under 10 minutes.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <div class="step-icon">🔍</div>
+      <h3>Get Matched</h3>
+      <p>Our matching system connects you with clients in Botswana who need exactly what you offer — no global competition.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <div class="step-icon">💰</div>
+      <h3>Deliver & Get Paid</h3>
+      <p>Complete the work. Payment is securely held in escrow and released via Orange Money, MyZaka, or bank transfer.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">04</div>
+      <div class="step-icon">⭐</div>
+      <h3>Build Your Reputation</h3>
+      <p>Earn reviews, grow your profile, unlock premium visibility, and build a real freelance business from Botswana.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="section-tag">Browse Skills</div>
+  <h2>Whatever you need, it's here.</h2>
+  <p class="categories-sub">From digital services to hands-on trades — find verified, rated Batswana freelancers.</p>
+  <div class="cat-grid">
+    <div class="cat-item reveal"><div class="cat-emoji">🎨</div><div class="cat-label">Graphic Design</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">💻</div><div class="cat-label">Web Development</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">📸</div><div class="cat-label">Photography</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">🎬</div><div class="cat-label">Video & Editing</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">✏️</div><div class="cat-label">Writing & Copywriting</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">📐</div><div class="cat-label">Tutoring</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">✂️</div><div class="cat-label">Hair & Beauty</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">🍽️</div><div class="cat-label">Catering & Cooking</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">🔧</div><div class="cat-label">Plumbing & Repairs</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">🏗️</div><div class="cat-label">Construction</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">🌱</div><div class="cat-label">Gardening</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">📊</div><div class="cat-label">Accounting</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">📱</div><div class="cat-label">Social Media</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">🎵</div><div class="cat-label">Music & Events</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">🚗</div><div class="cat-label">Transport & Delivery</div></div>
+    <div class="cat-item reveal"><div class="cat-emoji">🧹</div><div class="cat-label">Cleaning Services</div></div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="about">
+  <div>
+    <div class="section-tag">Why SkillConnect BW</div>
+    <h2>Built for Botswana. Not borrowed from abroad.</h2>
+    <p class="why-lead">Platforms like Fiverr and Upwork weren't designed with Batswana in mind. We are — local payments, local clients, local support.</p>
+    <ul class="why-points">
+      <li>No international payment accounts required — use Orange Money, MyZaka, or your local bank</li>
+      <li>Compete locally, not against millions of global freelancers</li>
+      <li>Secure escrow ensures you always get paid for work done</li>
+      <li>Verified profiles build trust between clients and service providers</li>
+      <li>Supported by LEA & CEDA-aligned entrepreneurship values</li>
+      <li>Bilingual support in English and Setswana</li>
+    </ul>
+  </div>
+  <div class="why-visual reveal">
+    <div class="why-card tall accent">
+      <div>
+        <div class="why-card-num">10%</div>
+        <div class="why-card-label">Commission only — no hidden fees</div>
+      </div>
+      <div>
+        <div class="why-card-big">Your money, your rates.</div>
+        <div class="why-card-text" style="color:rgba(255,255,255,0.7)">Set your own prices. We only earn when you do.</div>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="why-card-num" style="color:var(--terracotta)">🔒</div>
+      <div class="why-card-big" style="font-size:1rem">Escrow Protection</div>
+      <div class="why-card-text">Funds held securely until the job is done right.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-card-num" style="color:var(--sky)">⭐</div>
+      <div class="why-card-big" style="font-size:1rem">Verified Reviews</div>
+      <div class="why-card-text">Real ratings from real clients in Botswana.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-card-num" style="color:var(--sage)">📲</div>
+      <div class="why-card-big" style="font-size:1rem">Mobile First</div>
+      <div class="why-card-text">Designed to work beautifully on any smartphone.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-tag">Membership</div>
+  <h2>Simple, transparent pricing.</h2>
+  <p class="pricing-sub">Start for free. Upgrade when you're ready to grow.</p>
+  <div class="plans-grid">
+    <div class="plan reveal">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">Free <span>/ forever</span></div>
+      <div class="plan-desc">Perfect for getting your first clients.</div>
+      <ul class="plan-features">
+        <li>Basic profile & portfolio</li>
+        <li>Up to 3 active listings</li>
+        <li>Standard search visibility</li>
+        <li>10% commission per job</li>
+        <li>Mobile money payouts</li>
+      </ul>
+      <a href="#" class="btn-secondary" style="width:100%;text-align:center">Get Started Free</a>
+    </div>
+    <div class="plan popular reveal">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-price">P99 <span>/ month</span></div>
+      <div class="plan-desc">For freelancers serious about growing.</div>
+      <ul class="plan-features">
+        <li>Featured profile badge</li>
+        <li>Unlimited active listings</li>
+        <li>Priority search placement</li>
+        <li>Reduced 7% commission</li>
+        <li>Analytics dashboard</li>
+        <li>Direct client messaging</li>
+      </ul>
+      <a href="#" class="btn-primary" style="width:100%;text-align:center">Go Pro</a>
+    </div>
+    <div class="plan reveal">
+      <div class="plan-name">Business</div>
+      <div class="plan-price">P249 <span>/ month</span></div>
+      <div class="plan-desc">For agencies and power users.</div>
+      <ul class="plan-features">
+        <li>Everything in Pro</li>
+        <li>Team sub-accounts (up to 5)</li>
+        <li>Sponsored listing slots</li>
+        <li>5% commission rate</li>
+        <li>Dedicated account manager</li>
+        <li>API integrations</li>
+      </ul>
+      <a href="#" class="btn-secondary" style="width:100%;text-align:center">Contact Sales</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-tag">Community</div>
+  <h2>Batswana earning on their own terms.</h2>
+  <div class="testi-grid">
+    <div class="testi reveal">
+      <p class="testi-quote">I was unemployed for two years. Within a month on SkillConnect, I had three regular clients for my graphic design work. My rates, my schedule.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">TM</div>
+        <div>
+          <div class="testi-name">Tebogo M.</div>
+          <div class="testi-role">Graphic Designer, Gaborone</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi reveal">
+      <p class="testi-quote">As a small business owner, I used to struggle finding reliable caterers for our events. SkillConnect makes it so easy — every provider is rated and verified.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">KD</div>
+        <div>
+          <div class="testi-name">Kefilwe D.</div>
+          <div class="testi-role">SME Owner, Francistown</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi reveal">
+      <p class="testi-quote">I'm a plumber. Never thought I'd be on a digital platform — but SkillConnect made it simple, even for someone who isn't tech-savvy. Jobs come to me now.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">OM</div>
+        <div>
+          <div class="testi-name">Omphile M.</div>
+          <div class="testi-role">Plumber, Molepolole</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Your skill is your<br>superpower. Use it.</h2>
+  <p>Join hundreds of Batswana who are already building sustainable income through SkillConnect Botswana.</p>
+  <div class="cta-actions">
+    <a href="#" class="btn-white">Create Your Free Profile</a>
+    <a href="#categories" class="btn-outline-white">Browse Services</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="nav-logo">Skill<span>Connect</span> BW</span>
+      <p>Botswana's dedicated digital marketplace for skills, services, and opportunity. Empowering youth through technology.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">Browse Skills</a></li>
+        <li><a href="#">Post a Job</a></li>
+        <li><a href="#">Pricing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 SkillConnect Botswana. All rights reserved.</span>
+    <span>Gaborone, Botswana 🇧🇼</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Stagger step reveals
+  document.querySelectorAll('.step').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.08}s`;
+  });
+  document.querySelectorAll('.cat-item').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 0.06}s`;
+  });
+</script>
+</body>
+</html>
